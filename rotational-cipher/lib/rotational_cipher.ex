@@ -20,18 +20,19 @@ defmodule RotationalCipher do
   end
 
   defp convert_char(char, shift) when char >= ?a and char <= ?z do
-    case rem((char + shift), ?z + 1) do
-      remainder when remainder < ?a -> remainder + ?a
-      remainder -> remainder
-    end
+    get_rotation_value(char, shift, ?a, ?z)
   end
 
   defp convert_char(char, shift) when char >= ?A and char <= ?Z do
-    case rem((char + shift), ?Z + 1) do
-      remainder when remainder < ?A -> remainder + ?A
-      remainder -> remainder
-    end
+    get_rotation_value(char, shift, ?A, ?Z)
   end
 
   defp convert_char(char, _), do: char
+
+  defp get_rotation_value(char, shift, a, z) do
+    case rem((char + shift), z + 1) do
+      remainder when remainder < a -> remainder + a
+      remainder -> remainder
+    end
+  end
 end
